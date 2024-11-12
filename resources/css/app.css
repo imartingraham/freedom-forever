@@ -1,3 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.input-bordered {
+  border-color: var(--fallback-bc, oklch(var(--bc)/.2))
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: .5rem
+}
+
+.flex-grow, .grow {
+  flex-grow: 1
+}

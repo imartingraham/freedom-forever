@@ -20,3 +20,7 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+.prettierrc
+.env.testing
+*.sqlite
+dump.rdb
