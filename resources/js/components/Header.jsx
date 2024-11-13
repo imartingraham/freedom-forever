@@ -40,7 +40,7 @@ export default function Header() {
               onSearchLeads({ status: e.target.value });
             }}
           >
-            <option value="" selected>
+            <option value="">
               All Statuses
             </option>
             {leadStatuses.map((status, idx) => (

@@ -17,6 +17,7 @@ export default function LeadForm({ onSave }) {
   const [formData, setFormData] = useState(lead);
 
   useEffect(() => {
+    activeLead.lead_status_id = formData.lead_status_id || (leadStatuses[0] && leadStatuses[0].id)
     setFormData(activeLead);
   }, [activeLead]);
 
@@ -25,7 +26,6 @@ export default function LeadForm({ onSave }) {
     setFormData(formData);
   };
 
-  const defaultStatus = formData.lead_status_id || (leadStatuses[0] && leadStatuses[0].id)
   return (
     <div>
       <h3 className="mb-5">Create Lead</h3>
@@ -94,9 +94,10 @@ export default function LeadForm({ onSave }) {
             className="select select-bordered w-full"
             name="lead_status_id"
             onChange={setInputData}
+            defaultValue={formData.lead_status_id}
           >
             {leadStatuses.map((status, idx) => (
-              <option selected={status.id == defaultStatus && 'selected'} key={idx} value={status.id}>
+              <option key={idx} value={status.id}>
                 {status.name}
               </option>
             ))}
