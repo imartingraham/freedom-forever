@@ -42,4 +42,19 @@ class Lead extends Model
     {
         return $this->belongsTo(LeadStatus::class);
     }
+
+    public static function search(?string $term, ?int $status, int $limit)
+    {
+        $pagedLeads = self::orderBy('created_at', 'desc');
+        if($term){
+            $column = str_contains($term, '@') ? 'email' : 'name';
+            $pagedLeads->where($column, 'LIKE', '%'.$term.'%');
+        }
+
+        if($status){
+            $pagedLeads->where('lead_status_id', $status);
+        }
+
+        return $pagedLeads->paginate($limit)->withQueryString();
+    }
 }

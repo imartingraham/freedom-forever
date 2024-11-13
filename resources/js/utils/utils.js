@@ -36,13 +36,9 @@ export const fetchLeadStatuses = async () => {
 }
 
 export const upsertLead = async (leadId, leadData) => {
-    try {
-        const response = await axios({
-            method: !!leadId ? 'put' : 'post',
-            url: `/leads/${leadId || ''}`,
-            data: leadData,
-        })
-    } catch (error) {
-        console.error('error saving lead', error)
-    }
+    const response = await axios({
+        method: !!leadId ? 'put' : 'post',
+        url: `/leads/${leadId || ''}`,
+        data: leadData,
+    })
 }

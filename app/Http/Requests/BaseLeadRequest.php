@@ -34,7 +34,7 @@ class BaseLeadRequest extends FormRequest
             'name.required' => 'Name is required',
             'email.required' => 'Email is required',
             'phone.required' => 'Phone is required',
-            'lead_status_id.required' => 'Lead tatus is required'
+            'lead_status_id.required' => 'Lead status is required'
         ];
     }
  }

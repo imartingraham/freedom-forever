@@ -9,13 +9,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(LeadController::class)->group(function () {
-    Route::get('/leads', 'index');
-    Route::post('/leads', 'store');
-    Route::put('/leads/{id}', 'update');
-});
+Route::resources([
+    'leads' => LeadController::class,
+    'lead_statuses' => LeadStatusController::class
+]);
 
-Route::controller(LeadStatusController::class)->group(function() {
-    Route::get('/lead_statuses', 'index');
-});
 

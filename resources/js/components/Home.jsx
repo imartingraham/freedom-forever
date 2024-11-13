@@ -21,7 +21,7 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [activeLead, setActiveLead] = useState({});
   const [leadStatuses, setLeadStatuses] = useState([]);
-
+  const [formError, setFormError] = useState(null);
   const getLeads = async (linkUrl) => {
     try {
       setLoading(true);
@@ -63,13 +63,16 @@ export default function Home() {
   };
 
   const onSaveLead = async (leadId, leadData) => {
-    try {
+    try{
+      setFormError(null);
+      console.log('leadId')
       await upsertLead(leadId, leadData);
       setShowModal(false);
       // reset to the main page so the new lead shows up in the list
       getLeads();
-    } catch (e) {
-      console.error("error saving lead", e);
+    }catch(error){
+      console.error('error saving lead', error);
+      setFormError(error.response.data.message)
     }
   };
 
@@ -95,6 +98,8 @@ export default function Home() {
         setDefaultParams,
         activeLead,
         setActiveLead,
+        formError,
+        setFormError,
         leadStatuses,
         onSearchLeads,
         onSaveLead,

@@ -22,19 +22,11 @@ class LeadController extends Controller
     public function index(Request $request)
     {
         $pagedLeads = Cache::tags([self::CACHE_KEY])->remember($this->getCacheKey($request), self::CACHE_TIMEOUT, function() use(&$request) {
-            $pagedLeads = Lead::orderBy('created_at', 'desc');
+
             $query = $request->get('query');
             $status = $request->get('status');
             $limit = $this->getLimit($request->get('limit'));
-            if($query){
-                $column = str_contains($query, '@') ? 'email' : 'name';
-                $pagedLeads->where($column, 'LIKE', '%'.$query.'%');
-            }
-
-            if($status){
-                $pagedLeads->where('lead_status_id', $status);
-            }
-            return $pagedLeads->paginate($limit)->withQueryString();
+            return Lead::search($query, $status, $limit);
         });
 
         return response()->json($pagedLeads);
